@@ -363,4 +363,4 @@ public:
 
 REGISTER_FLOW_NODE("Xml:NewDocument", CFlowXmlNode_NewDocument);
 REGISTER_FLOW_NODE("Xml:SaveDocument", CFlowXmlNode_SaveDocument);
-REGISTER_FLOW_NODE("Xml:OpenDocument", CFlowXmlNode_OpenDocument);
+REGISTER_FLOW_NODE("Xml:JoshOpenDocument", CFlowXmlNode_OpenDocument);

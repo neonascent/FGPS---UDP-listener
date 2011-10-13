@@ -269,6 +269,7 @@ public:
 	}
 };
 
+
 ////////////////////////////////////////////////////
 class CFlowXmlNode_ClearValue : public CFlowXmlNode_Base
 {
@@ -944,14 +945,14 @@ public:
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
 
-REGISTER_FLOW_NODE("Xml:SetValue", CFlowXmlNode_SetValue);
-REGISTER_FLOW_NODE("Xml:IncValue", CFlowXmlNode_IncValue);
+//REGISTER_FLOW_NODE("Xml:SetValue", CFlowXmlNode_SetValue);
+//REGISTER_FLOW_NODE("Xml:IncValue", CFlowXmlNode_IncValue);
 REGISTER_FLOW_NODE("Xml:GetValue", CFlowXmlNode_GetValue);
-REGISTER_FLOW_NODE("Xml:ClearValue", CFlowXmlNode_ClearValue);
-REGISTER_FLOW_NODE("Xml:SetAttribute", CFlowXmlNode_SetAttribute);
-REGISTER_FLOW_NODE("Xml:IncAttribute", CFlowXmlNode_IncAttribute);
-REGISTER_FLOW_NODE("Xml:GetAttribute", CFlowXmlNode_GetAttribute);
-REGISTER_FLOW_NODE("Xml:GetAttributeCount", CFlowXmlNode_GetAttributeCount);
-REGISTER_FLOW_NODE("Xml:HasAttribute", CFlowXmlNode_HasAttribute);
-REGISTER_FLOW_NODE("Xml:DeleteAttribute", CFlowXmlNode_DeleteAttribute);
-REGISTER_FLOW_NODE("Xml:DeleteAllAttributes", CFlowXmlNode_DeleteAllAttributes);
+//REGISTER_FLOW_NODE("Xml:ClearValue", CFlowXmlNode_ClearValue);
+//REGISTER_FLOW_NODE("Xml:SetAttribute", CFlowXmlNode_SetAttribute);
+//REGISTER_FLOW_NODE("Xml:IncAttribute", CFlowXmlNode_IncAttribute);
+//REGISTER_FLOW_NODE("Xml:GetAttribute", CFlowXmlNode_GetAttribute);
+//REGISTER_FLOW_NODE("Xml:GetAttributeCount", CFlowXmlNode_GetAttributeCount);
+//REGISTER_FLOW_NODE("Xml:HasAttribute", CFlowXmlNode_HasAttribute);
+//REGISTER_FLOW_NODE("Xml:DeleteAttribute", CFlowXmlNode_DeleteAttribute);
+//REGISTER_FLOW_NODE("Xml:DeleteAllAttributes", CFlowXmlNode_DeleteAllAttributes);
