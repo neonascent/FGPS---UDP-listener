@@ -49,7 +49,8 @@ void Socket::End() {
 Socket::Socket() : s_(0) {
   Start();
   // UDP: use SOCK_DGRAM instead of SOCK_STREAM
-  s_ = socket(AF_INET,SOCK_STREAM,0);
+  //s_ = socket(AF_INET,SOCK_STREAM,0);
+  s_ = socket(AF_INET,SOCK_DGRAM,0);
 
   if (s_ == INVALID_SOCKET) {
     throw "INVALID_SOCKET";
@@ -141,6 +142,38 @@ std::string Socket::ReceiveLine() {
 //      // not connected anymore
 //      return "";
 //      }
+	  case WSANOTINITIALISED:
+			return "WSANOTINITIALISED";
+	  case WSAENETDOWN:
+			return "WSAENETDOWN";
+	  case WSAEFAULT:
+		  return "WSAEFAULT";
+	  case WSAENOTCONN:
+		  return "WSAENOTCONN";
+	  case WSAEINTR:
+		  return "WSAEINTR";
+	  case WSAEINPROGRESS:
+		  return "WSAEINPROGRESS";
+	  case WSAENETRESET:
+		  return "WSAENETRESET";
+	  case WSAENOTSOCK:
+		  return "WSAENOTSOCK";
+	  case WSAEOPNOTSUPP:
+		  return "WSAEOPNOTSUPP";
+	  case WSAESHUTDOWN:
+		  return "WSAESHUTDOWN";
+	  case WSAEWOULDBLOCK:
+		  return "WSAEWOULDBLOCK";
+	  case WSAEMSGSIZE:
+		  return "WSAEMSGSIZE";
+	  case WSAEINVAL:
+		  return "WSAEINVAL";
+	  case WSAECONNABORTED:
+		  return "WSAECONNABORTED";
+	  case WSAETIMEDOUT:
+		  return "WSAETIMEDOUT";
+	  case WSAECONNRESET:
+		  return "WSAECONNRESET";
     }
 
     ret += r;
@@ -164,7 +197,8 @@ SocketServer::SocketServer(int port, int connections, TypeSocket type) {
 
   sa.sin_family = PF_INET;             
   sa.sin_port = htons(port);          
-  s_ = socket(AF_INET, SOCK_STREAM, 0);
+  //s_ = socket(AF_INET, SOCK_STREAM, 0);
+  s_ = socket(AF_INET, SOCK_DGRAM, 0);
   if (s_ == INVALID_SOCKET) {
     throw "INVALID_SOCKET";
   }
