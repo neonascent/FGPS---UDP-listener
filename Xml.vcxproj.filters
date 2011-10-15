@@ -19,10 +19,10 @@
       <Filter>Startup Files</Filter>
     </ClCompile>
     <ClCompile Include="StdAfx.cpp" />
-    <ClCompile Include="FlowUdpSender.cpp">
+    <ClCompile Include="Nodes\FlowUdpNodeListener.cpp">
       <Filter>Nodes</Filter>
     </ClCompile>
-    <ClCompile Include="Nodes\FlowXMLDataNodes.cpp">
+    <ClCompile Include="FlowUdpNodeSender.cpp">
       <Filter>Nodes</Filter>
     </ClCompile>
   </ItemGroup>

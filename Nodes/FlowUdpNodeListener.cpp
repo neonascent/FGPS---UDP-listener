@@ -16,7 +16,7 @@
 #include "Nodes/G2FlowBaseNode.h"
 
 ////////////////////////////////////////////////////
-class CFlowXmlNode_GetValue : public CFlowBaseNode
+class CFlowUdpNode_Listener : public CFlowBaseNode
 {
 	
 	enum EInputPorts
@@ -55,7 +55,7 @@ class CFlowXmlNode_GetValue : public CFlowBaseNode
 
 public:
 	////////////////////////////////////////////////////
-	CFlowXmlNode_GetValue(SActivationInfo *pActInfo)
+	CFlowUdpNode_Listener(SActivationInfo *pActInfo)
 	{
 		// constructor
 		socketWorking = false;
@@ -125,7 +125,7 @@ public:
 	}
 
 	////////////////////////////////////////////////////
-	virtual ~CFlowXmlNode_GetValue(void)
+	virtual ~CFlowUdpNode_Listener(void)
 	{
 
 	}
@@ -224,7 +224,7 @@ public:
 	////////////////////////////////////////////////////
 	virtual IFlowNodePtr Clone(SActivationInfo *pActInfo)
 	{
-		return new CFlowXmlNode_GetValue(pActInfo);
+		return new CFlowUdpNode_Listener(pActInfo);
 	}
 
 	////////////////////////////////////////////////////
@@ -312,5 +312,5 @@ public:
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
 
-REGISTER_FLOW_NODE("UDP:Listener", CFlowXmlNode_GetValue);
+REGISTER_FLOW_NODE("UDP:Listener", CFlowUdpNode_Listener);
 

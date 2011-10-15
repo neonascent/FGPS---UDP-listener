@@ -16,7 +16,7 @@
 #include "Nodes/G2FlowBaseNode.h"
 
 ////////////////////////////////////////////////////
-class CFlowXmlNode_SendValue : public CFlowBaseNode
+class CFlowUdpNode_Sender : public CFlowBaseNode
 {
 
 	enum EInputPorts
@@ -49,7 +49,7 @@ class CFlowXmlNode_SendValue : public CFlowBaseNode
 
 public:
 	////////////////////////////////////////////////////
-	CFlowXmlNode_SendValue(SActivationInfo *pActInfo)
+	CFlowUdpNode_Sender(SActivationInfo *pActInfo)
 	{
 		pActInfo->pGraph->SetRegularlyUpdated(pActInfo->myID, false);
 	}
@@ -115,7 +115,7 @@ public:
 	}
 	
 	////////////////////////////////////////////////////
-	virtual ~CFlowXmlNode_SendValue(void)
+	virtual ~CFlowUdpNode_Sender(void)
 	{
 
 	}
@@ -183,7 +183,7 @@ public:
 	////////////////////////////////////////////////////
 	virtual IFlowNodePtr Clone(SActivationInfo *pActInfo)
 	{
-		return new CFlowXmlNode_SendValue(pActInfo);
+		return new CFlowUdpNode_Sender(pActInfo);
 	}
 
 	////////////////////////////////////////////////////
@@ -199,4 +199,4 @@ public:
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
 
-REGISTER_FLOW_NODE("UDP:Sender", CFlowXmlNode_SendValue);
+REGISTER_FLOW_NODE("UDP:Sender", CFlowUdpNode_Sender);

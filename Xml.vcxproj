@@ -226,9 +226,9 @@
     <ClInclude Include="StdAfx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FlowUdpSender.cpp" />
+    <ClCompile Include="FlowUdpNodeSender.cpp" />
     <ClCompile Include="PluginMain.cpp" />
-    <ClCompile Include="Nodes\FlowXMLDataNodes.cpp" />
+    <ClCompile Include="Nodes\FlowUdpNodeListener.cpp" />
     <ClCompile Include="StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
