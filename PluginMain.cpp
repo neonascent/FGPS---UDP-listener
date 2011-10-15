@@ -17,8 +17,6 @@
 #include <windows.h>
 #include "Nodes/G2FlowBaseNode.h"
 
-#include "Nodes/FlowBaseXmlNode.h"
-
 
 // Plugin's name
 #define PLUGIN_NAME "UDP I/O Nodes"
@@ -70,8 +68,6 @@ extern "C"
 	/////////////////////////////////////////////////////////////////
 	GAME_API bool RegisterWithPluginSystem(ISystem *pSystem, SCVars *pCVars, SPluginRegister &plugin)
 	{
-		CGraphDocManager::Create();
-
 		SetupSystem(pSystem, pCVars);
 
 		// Fill in register

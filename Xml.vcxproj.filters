@@ -12,29 +12,15 @@
     <ClInclude Include="..\Common\PluginCommon.h">
       <Filter>Startup Files</Filter>
     </ClInclude>
-    <ClInclude Include="Nodes\FlowBaseXmlNode.h">
-      <Filter>Nodes</Filter>
-    </ClInclude>
     <ClInclude Include="StdAfx.h" />
-    <ClInclude Include="Socket.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PluginMain.cpp">
       <Filter>Startup Files</Filter>
     </ClCompile>
-    <ClCompile Include="Nodes\FlowBaseXmlNode.cpp">
-      <Filter>Nodes</Filter>
-    </ClCompile>
     <ClCompile Include="Nodes\FlowXmlDataNodes.cpp">
       <Filter>Nodes</Filter>
     </ClCompile>
-    <ClCompile Include="Nodes\FlowXmlFileNodes.cpp">
-      <Filter>Nodes</Filter>
-    </ClCompile>
-    <ClCompile Include="Nodes\FlowXmlNavNodes.cpp">
-      <Filter>Nodes</Filter>
-    </ClCompile>
     <ClCompile Include="StdAfx.cpp" />
-    <ClCompile Include="Socket.cpp" />
   </ItemGroup>
 </Project>

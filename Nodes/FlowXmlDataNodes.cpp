@@ -11,25 +11,28 @@
 /////////////////////////////////////////////////////////////////
 
 #include "StdAfx.h"
-#include "FlowBaseXmlNode.h"
-#include "Socket.h"
 #include "process.h"
-#include "sstream"
+#include "Nodes/G2FlowBaseNode.h"
 
 ////////////////////////////////////////////////////
-class CFlowXmlNode_GetValue : public CFlowXmlNode_Base
+class CFlowXmlNode_GetValue : public CFlowBaseNode
 {
 	
 	enum EInputPorts
 	{
-		EIP_Port = EIP_CustomStart,  // "= EIP_CustomStart" essential to start additional inputs after inherited stuff
+		EIP_Enable,
+		EIP_Disable,
+		EIP_Port, 
 	};
 
 	enum EOutputs
 	{
-		EOP_Value = EOP_CustomStart,
+		EOP_Success = 0,
+		EOP_Fail,
+		EOP_Received,
+		EOP_Value,
 	};
-
+	
 
 	// UDP socket stuff
     //init
@@ -44,20 +47,29 @@ class CFlowXmlNode_GetValue : public CFlowXmlNode_Base
 	bool socketWorking;
 	std::string problem;
 
+
+	bool m_bEnabled;
+	SActivationInfo m_actInfo;  // is this needed?  We already just use pActInfo
+	CTimeValue m_lastTime;
+
 public:
 	////////////////////////////////////////////////////
-	CFlowXmlNode_GetValue(SActivationInfo *pActInfo) : CFlowXmlNode_Base(pActInfo)
+	CFlowXmlNode_GetValue(SActivationInfo *pActInfo)
 	{
+		// constructor
 		socketWorking = false;
+		m_bEnabled = false;
 		problem = "nothing done";
 	}
 
+	////////////////////////////////////////////////////
 	void endSocket() {
 		socketWorking = false;
 		closesocket(mySocket);
 		WSACleanup();
 	}
 
+	////////////////////////////////////////////////////
 	void startSocket(int port) {
 		// init
 		STRLEN = 256;
@@ -96,13 +108,19 @@ public:
 					problem = "ServerSocket: Failed to connect\n";
 					WSACleanup();
 				} else {
-
+					// all went well, send Success signal, and set details
 					socketWorking = true;
 					problem = "no problem";
+					ActivateOutput(&m_actInfo, EOP_Success, true);
+					return;
 				}
 
 			}
 		}
+
+		// failed, send Failed signal
+		ActivateOutput(&m_actInfo, EOP_Fail, true); 
+		return;
 	}
 
 	////////////////////////////////////////////////////
@@ -123,7 +141,8 @@ public:
 		// Define input ports here, in same order as EInputPorts
 		static const SInputPortConfig inputs[] =
 		{
-			ADD_BASE_INPUTS(),
+			InputPortConfig_Void("Enable", _HELP("Enable receiving signals")),
+			InputPortConfig_Void("Disable", _HELP("Disable receiving signals")),
 			InputPortConfig<int>("Port", 123, _HELP("Port number"), 0,0),
 			{0}
 		};
@@ -131,7 +150,9 @@ public:
 		// Define output ports here, in same oreder as EOutputPorts
 		static const SOutputPortConfig outputs[] =
 		{
-			ADD_BASE_OUTPUTS(),
+			OutputPortConfig<bool>("Success", _HELP("UDP socket successfully opened for listening")), 
+			OutputPortConfig<bool>("Fail", _HELP("UDP socket failed to open")), 
+			OutputPortConfig<bool>("Received", _HELP("New data")), 
 			OutputPortConfig_Void("Value", _HELP("Value")),
 			{0}
 		};
@@ -139,8 +160,55 @@ public:
 		// Fill in configuration
 		config.pInputPorts = inputs;
 		config.pOutputPorts = outputs;
-		config.sDescription = _HELP("Get the value of the active element");
-		config.SetCategory(EFLN_APPROVED);
+		config.sDescription = _HELP("Opens a UDP listener");
+		//config.SetCategory(EFLN_ADVANCED);
+	}
+
+
+
+
+
+	////////////////////////////////////////////////////
+	virtual void ProcessEvent(EFlowEvent event, SActivationInfo *pActInfo)
+	{
+		switch (event)
+		{
+			case eFE_Initialize:
+			{
+				m_actInfo = *pActInfo;
+			}
+			break;
+
+			case eFE_Activate:
+			{
+				if (IsPortActive(pActInfo, EIP_Enable)) {
+					m_bEnabled = true;
+					Execute(pActInfo);
+					pActInfo->pGraph->SetRegularlyUpdated(pActInfo->myID, true);
+				}
+				if (IsPortActive(pActInfo, EIP_Disable)) {
+					m_bEnabled = false;
+					endSocket();
+					pActInfo->pGraph->SetRegularlyUpdated(pActInfo->myID, false);
+				}
+			}
+			break;
+
+			case eFE_Update:
+			{
+				CTimeValue currTime(gEnv->pTimer->GetCurrTime());
+				float delay = 0;  // processing delay
+				delay -= (currTime-m_lastTime).GetSeconds();
+				m_lastTime = currTime;
+
+				// Execute?
+				if (delay <= 0.0f)
+				{
+					Execute(pActInfo);
+				}
+			}
+			break;
+		}
 	}
 
 	////////////////////////////////////////////////////
@@ -156,11 +224,11 @@ public:
 	}
 
 
-	std::string ReceiveLine() {
-	  std::string ret = "";
-	  if (socketWorking) {
+	int ReceiveLine() {
+	  int size = -1;
+		if (socketWorking) {
 		server_length = sizeof(struct sockaddr_in);
-		int size = recvfrom(mySocket, recMessage, STRLEN, 0, (SOCKADDR*) &myAddress, &server_length);
+		size = recvfrom(mySocket, recMessage, STRLEN, 0, (SOCKADDR*) &myAddress, &server_length);
 		/*if (size == SOCKET_ERROR) {
 			  // get last error
 			switch(WSAGetLastError()) {
@@ -202,17 +270,16 @@ public:
 		}*/
 		if (size != SOCKET_ERROR) {
 			recMessage[size] = '\0';
-			ret += recMessage;
-			return ret;
 		} 
 	  }
-	  return "<failed>";
+	  return size;
 	}
 
 	////////////////////////////////////////////////////
-	virtual bool Execute(SActivationInfo *pActInfo)
+	virtual void Execute(SActivationInfo *pActInfo)
 	{
-		
+		bool bResult = false;
+
 		// if port isn't working then try to start it (might be first time)
 		if (!socketWorking) {
 			port = GetPortInt(pActInfo, EIP_Port);
@@ -226,25 +293,27 @@ public:
 			}
 		}
 		
-		bool bResult = false;
-
+		// did the socket connect okay?
 		if (socketWorking) {
-			if (ReceiveLine() != "<failed>") {
-				string value = ReceiveLine().c_str();
+			if (ReceiveLine() != -1) {
+				std::string r = recMessage;
+				string value = r.c_str();
 				ActivateOutput(pActInfo, EOP_Value, value);
 				bResult = true;
 			}
 		}
-
+	
 		// return false if socket error, or no message
-
-		return bResult;
+		
+		if (bResult) ActivateOutput(pActInfo, EOP_Received, true);
+		return;
 	}
+
 };
 
 
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
 
-REGISTER_FLOW_NODE("Xml:GetValue", CFlowXmlNode_GetValue);
+REGISTER_FLOW_NODE("UDP:Listener", CFlowXmlNode_GetValue);
 

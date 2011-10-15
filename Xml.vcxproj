@@ -30,7 +30,7 @@
     <ProjectGuid>{C542FA2B-D775-4679-B2F6-EF1CC9097261}</ProjectGuid>
     <RootNamespace>Xml</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <ProjectName>XML</ProjectName>
+    <ProjectName>UDP</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Win32'" Label="Configuration">
@@ -105,7 +105,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)../FGPlugins/Bin32/Xml.dll</OutputFile>
+      <OutputFile>$(OutDir)../FGPlugins/Bin32/Udp.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)../FGPlugins/Bin32/Xml.pdb</ProgramDatabaseFile>
@@ -219,17 +219,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\PluginCommon.h" />
-    <ClInclude Include="Nodes\FlowBaseXmlNode.h" />
-    <ClInclude Include="Socket.h" />
     <ClInclude Include="StdAfx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PluginMain.cpp" />
-    <ClCompile Include="Nodes\FlowBaseXmlNode.cpp" />
     <ClCompile Include="Nodes\FlowXmlDataNodes.cpp" />
-    <ClCompile Include="Nodes\FlowXmlFileNodes.cpp" />
-    <ClCompile Include="Nodes\FlowXmlNavNodes.cpp" />
-    <ClCompile Include="Socket.cpp" />
     <ClCompile Include="StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
