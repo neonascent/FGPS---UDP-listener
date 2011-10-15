@@ -15,15 +15,38 @@
 #include "winsock2.h"
 #include "Nodes/G2FlowBaseNode.h"
 
+// super annoying: http://support.microsoft.com/kb/257460
+// must include different header
+
+/* Option to use with [gs]etsockopt at the IPPROTO_IP level */ 
+// using ws2_32.lib and winsock2.h
+
+#define	IP_OPTIONS		1 /* set/get IP options */ 
+#define	IP_HDRINCL		2 /* header is included with data */ 
+#define	IP_TOS			3 /* IP type of service and preced*/ 
+#define	IP_TTL			4 /* IP time to live */ 
+#define	IP_MULTICAST_IF		9 /* set/get IP multicast i/f  */ 
+#define	IP_MULTICAST_TTL       10 /* set/get IP multicast ttl */ 
+#define	IP_MULTICAST_LOOP      11 /*set/get IP multicast loopback */ 
+#define	IP_ADD_MEMBERSHIP      12 /* add an IP group membership */ 
+#define	IP_DROP_MEMBERSHIP     13/* drop an IP group membership */ 
+#define IP_DONTFRAGMENT     14 /* don't fragment IP datagrams */ 
+
 ////////////////////////////////////////////////////
-class CFlowUdpNode_Listener : public CFlowBaseNode
+class CFlowUdpNode_MulticastListener : public CFlowBaseNode
 {
 	
+	struct ip_mreq {
+       struct in_addr imr_multiaddr;   /* multicast group to join */ 
+       struct in_addr imr_interface;   /* interface to join on    */ 
+   };
+
 	enum EInputPorts
 	{
 		EIP_Enable,
 		EIP_Disable,
 		EIP_Port, 
+		EIP_Multicast,
 	};
 
 	enum EOutputs
@@ -32,6 +55,7 @@ class CFlowUdpNode_Listener : public CFlowBaseNode
 		EOP_Fail,
 		EOP_Received,
 		EOP_Value,
+		EOP_Error,
 	};
 	
 
@@ -44,6 +68,8 @@ class CFlowUdpNode_Listener : public CFlowBaseNode
     WSADATA wsaData;
     SOCKET mySocket;
     sockaddr_in myAddress;
+	ip_mreq mreq;  // multicast address
+	string multicast;
 
 	bool socketWorking;
 	std::string problem;
@@ -55,7 +81,7 @@ class CFlowUdpNode_Listener : public CFlowBaseNode
 
 public:
 	////////////////////////////////////////////////////
-	CFlowUdpNode_Listener(SActivationInfo *pActInfo)
+	CFlowUdpNode_MulticastListener(SActivationInfo *pActInfo)
 	{
 		// constructor
 		socketWorking = false;
@@ -71,7 +97,7 @@ public:
 	}
 
 	////////////////////////////////////////////////////
-	void startSocket(int port) {
+	void startSocket(int port, string multicast) {
 		// init
 		STRLEN = 256;
 		socketWorking = false;
@@ -79,10 +105,11 @@ public:
 		//create socket
 		// a bit messy, from : http://www.cplusplus.com/forum/windows/24301/
 		// and non-blocking from: http://www.adp-gmbh.ch/win/misc/sockets.html Socket.cpp
+		// also, notes on linking to the right Winsock library for winsock2.h or winsock.h: http://www.codeguru.com/forum/archive/index.php/t-309487.html
 
 		if( WSAStartup( MAKEWORD(2, 2), &wsaData ) != NO_ERROR )
 		{
-			problem = "Socket Initialization: Error with WSAStartup\n";
+			ActivateOutput(&m_actInfo, EOP_Error, (string) "Socket Initialization: Error with WSAStartup\n"); 
 			WSACleanup();
 
 		} else {
@@ -91,7 +118,7 @@ public:
 			mySocket = socket(AF_INET, SOCK_DGRAM, 0);
 			if (mySocket == INVALID_SOCKET)
 			{
-				problem = "Socket Initialization: Error creating socket";
+				ActivateOutput(&m_actInfo, EOP_Error, (string) "Socket Initialization: Error creating socket"); 
 				WSACleanup();
 			} else {
 
@@ -106,14 +133,55 @@ public:
   
 				if(bind(mySocket, (SOCKADDR*) &myAddress, sizeof(myAddress)) == SOCKET_ERROR)
 				{
-					problem = "ServerSocket: Failed to connect\n";
+					ActivateOutput(&m_actInfo, EOP_Error, (string) "ServerSocket: Failed to connect\n"); 
 					WSACleanup();
 				} else {
-					// all went well, send Success signal, and set details
-					socketWorking = true;
-					problem = "no problem";
-					ActivateOutput(&m_actInfo, EOP_Success, true);
-					return;
+					
+					// try to join multicast
+					mreq.imr_multiaddr.s_addr = inet_addr(multicast);
+					mreq.imr_interface.s_addr = INADDR_ANY;
+					if (setsockopt(mySocket, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char*)&mreq, sizeof(mreq)) == SOCKET_ERROR) {
+						string s = "ServerSocket: Can't join multicast:";
+						switch (WSAGetLastError()) {
+						case WSANOTINITIALISED:
+							s = "WSANOTINITIALISED";
+							break;
+						case WSAENETDOWN:
+							s = "WSAENETDOWN";
+							break;
+						case WSAEFAULT:
+							s = "WSAEFAULT";
+							break;
+						case WSAEINPROGRESS:
+							s = "WSAEINPROGRESS";
+							break;
+						case WSAEINVAL:
+							s = "WSAEINVAL";
+							break;
+						case WSAENETRESET:
+							s = "WSAENETRESET";
+							break;
+						case WSAENOPROTOOPT:
+							s = "WSAENOPROTOOPT";
+							break;
+						case WSAENOTCONN:
+							s = "WSAENOTCONN";
+							break;
+						case WSAENOTSOCK:
+							s = "WSAENOTSOCK";
+							break;
+						}
+			
+						ActivateOutput(&m_actInfo, EOP_Error, s ); 
+						closesocket(mySocket);
+						WSACleanup();
+					} else {
+						// all went well, send Success signal, and set details
+						socketWorking = true;
+						ActivateOutput(&m_actInfo, EOP_Error, (string) "no error\n"); 
+						ActivateOutput(&m_actInfo, EOP_Success, true);
+						return;
+					}
 				}
 
 			}
@@ -125,7 +193,7 @@ public:
 	}
 
 	////////////////////////////////////////////////////
-	virtual ~CFlowUdpNode_Listener(void)
+	virtual ~CFlowUdpNode_MulticastListener(void)
 	{
 
 	}
@@ -145,6 +213,7 @@ public:
 			InputPortConfig_Void("Enable", _HELP("Enable receiving signals")),
 			InputPortConfig_Void("Disable", _HELP("Disable receiving signals")),
 			InputPortConfig<int>("Port", 123, _HELP("Port number"), 0,0),
+			InputPortConfig<string>("Multicast", "225.0.0.1", _HELP("UDP Multicast address (between 224.0.0.2 and 239.255.255.255)"), 0,0),
 			{0}
 		};
 
@@ -155,13 +224,14 @@ public:
 			OutputPortConfig<bool>("Fail", _HELP("UDP socket failed to open")), 
 			OutputPortConfig<bool>("Received", _HELP("New data")), 
 			OutputPortConfig_Void("Value", _HELP("Value")),
+			OutputPortConfig_Void("Error", _HELP("Error generated by UDP Listener")),
 			{0}
 		};
 
 		// Fill in configuration
 		config.pInputPorts = inputs;
 		config.pOutputPorts = outputs;
-		config.sDescription = _HELP("Opens a UDP listener");
+		config.sDescription = _HELP("Opens a Multicast UDP listener");
 		//config.SetCategory(EFLN_ADVANCED);
 	}
 
@@ -191,7 +261,8 @@ public:
 					m_bEnabled = true;
 					// try to open port socket
 					port = GetPortInt(pActInfo, EIP_Port);
-					startSocket(port);
+					multicast = GetPortString(pActInfo, EIP_Multicast);
+					startSocket(port, multicast);
 
 					Execute(pActInfo);
 					pActInfo->pGraph->SetRegularlyUpdated(pActInfo->myID, true);
@@ -224,7 +295,7 @@ public:
 	////////////////////////////////////////////////////
 	virtual IFlowNodePtr Clone(SActivationInfo *pActInfo)
 	{
-		return new CFlowUdpNode_Listener(pActInfo);
+		return new CFlowUdpNode_MulticastListener(pActInfo);
 	}
 
 	////////////////////////////////////////////////////
@@ -312,5 +383,5 @@ public:
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
 
-REGISTER_FLOW_NODE("UDP:Listener", CFlowUdpNode_Listener);
+REGISTER_FLOW_NODE("UDP:MulticastListener", CFlowUdpNode_MulticastListener);
 

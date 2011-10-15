@@ -12,7 +12,7 @@
 
 #include "StdAfx.h"
 #include "process.h"
-#include "winsock.h"
+#include "winsock2.h"
 #include "Nodes/G2FlowBaseNode.h"
 
 ////////////////////////////////////////////////////

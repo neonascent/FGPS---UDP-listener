@@ -115,7 +115,7 @@
       <ImportLibrary>$(OutDir)../FGPlugins/Bin32/Xml.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>C:\Program Files %28x86%29\Microsoft SDKs\Windows\v7.0A\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>WS2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "F:\Archive\Experimentation\Tracking\Crysis 2\FGPlugins\Bin32\Udp.dll" "D:\Crysis Wars\Mods\FGPS\FGPlugins\Bin32\"</Command>
@@ -226,6 +226,7 @@
     <ClInclude Include="StdAfx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FlowUdpNodeMulticastListener.cpp" />
     <ClCompile Include="FlowUdpNodeSender.cpp" />
     <ClCompile Include="PluginMain.cpp" />
     <ClCompile Include="Nodes\FlowUdpNodeListener.cpp" />

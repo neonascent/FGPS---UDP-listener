@@ -25,5 +25,8 @@
     <ClCompile Include="FlowUdpNodeSender.cpp">
       <Filter>Nodes</Filter>
     </ClCompile>
+    <ClCompile Include="FlowUdpNodeMulticastListener.cpp">
+      <Filter>Nodes</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
