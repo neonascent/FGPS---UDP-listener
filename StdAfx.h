@@ -35,9 +35,6 @@
 #include <vector>
 #include <memory>
 
-// josh
-#include <Socket.h>
-
 #include <smartptr.h>
 
 #include <Cry_Math.h>

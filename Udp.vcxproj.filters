@@ -2,10 +2,10 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Startup Files">
-      <UniqueIdentifier>{a8f94a49-8eaf-48c5-8921-62a81c2e7a6d}</UniqueIdentifier>
+      <UniqueIdentifier>{f95a606d-4f46-4e50-83d4-3827a32f2c85}</UniqueIdentifier>
     </Filter>
     <Filter Include="Nodes">
-      <UniqueIdentifier>{f3e77a21-d812-4620-b1e7-e2167df05c01}</UniqueIdentifier>
+      <UniqueIdentifier>{a2e2e51e-d7d3-451a-88c5-1ecd04293905}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -19,10 +19,7 @@
       <Filter>Startup Files</Filter>
     </ClCompile>
     <ClCompile Include="StdAfx.cpp" />
-    <ClCompile Include="FlowUdpSender.cpp">
-      <Filter>Nodes</Filter>
-    </ClCompile>
-    <ClCompile Include="Nodes\FlowXMLDataNodes.cpp">
+    <ClCompile Include="Nodes\FlowUdpDataNodes.cpp">
       <Filter>Nodes</Filter>
     </ClCompile>
   </ItemGroup>

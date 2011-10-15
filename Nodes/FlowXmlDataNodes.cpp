@@ -12,6 +12,7 @@
 
 #include "StdAfx.h"
 #include "process.h"
+#include "winsock.h"
 #include "Nodes/G2FlowBaseNode.h"
 
 ////////////////////////////////////////////////////
@@ -182,7 +183,16 @@ public:
 			case eFE_Activate:
 			{
 				if (IsPortActive(pActInfo, EIP_Enable)) {
+					
+					if (socketWorking) {
+						endSocket();
+					}
+					
 					m_bEnabled = true;
+					// try to open port socket
+					port = GetPortInt(pActInfo, EIP_Port);
+					startSocket(port);
+
 					Execute(pActInfo);
 					pActInfo->pGraph->SetRegularlyUpdated(pActInfo->myID, true);
 				}
@@ -280,19 +290,6 @@ public:
 	{
 		bool bResult = false;
 
-		// if port isn't working then try to start it (might be first time)
-		if (!socketWorking) {
-			port = GetPortInt(pActInfo, EIP_Port);
-			startSocket(port);
-		} else {
-			// if port has changed then close old port and start new one
-			if (port != GetPortInt(pActInfo, EIP_Port)) {
-				endSocket();
-				port = GetPortInt(pActInfo, EIP_Port);
-				startSocket(port);
-			}
-		}
-		
 		// did the socket connect okay?
 		if (socketWorking) {
 			if (ReceiveLine() != -1) {
