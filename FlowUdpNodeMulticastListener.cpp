@@ -213,7 +213,7 @@ public:
 			InputPortConfig_Void("Enable", _HELP("Enable receiving signals")),
 			InputPortConfig_Void("Disable", _HELP("Disable receiving signals")),
 			InputPortConfig<int>("Port", 123, _HELP("Port number"), 0,0),
-			InputPortConfig<string>("Multicast", "225.0.0.1", _HELP("UDP Multicast address (between 224.0.0.2 and 239.255.255.255)"), 0,0),
+			InputPortConfig<string>("Multicast", "225.0.0.1", _HELP("UDP Multicast address (between 225.0.0.1 and 239.255.255.255)"), 0,0),
 			{0}
 		};
 

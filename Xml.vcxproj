@@ -227,6 +227,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FlowUdpNodeMulticastListener.cpp" />
+    <ClCompile Include="FlowUdpNodeMulticastSender.cpp" />
     <ClCompile Include="FlowUdpNodeSender.cpp" />
     <ClCompile Include="PluginMain.cpp" />
     <ClCompile Include="Nodes\FlowUdpNodeListener.cpp" />
