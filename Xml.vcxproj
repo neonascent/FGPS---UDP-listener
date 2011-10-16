@@ -118,7 +118,9 @@
       <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "F:\Archive\Experimentation\Tracking\Crysis 2\FGPlugins\Bin32\Udp.dll" "D:\Crysis Wars\Mods\FGPS\FGPlugins\Bin32\"</Command>
+      <Command>copy "F:\Archive\Experimentation\Tracking\Crysis 2\FGPlugins\Bin32\Udp.dll" "D:\Crysis Wars\Mods\FGPS\FGPlugins\Bin32\"
+copy "F:\Archive\Experimentation\Tracking\Crysis 2\FGPlugins\Bin32\Udp.dll" "$(MSBuildProjectDirectory)\binaries\bin32\"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,14 +144,20 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)../FGPlugins/Bin64/Xml.dll</OutputFile>
+      <OutputFile>$(OutDir)../FGPlugins/Bin64/Udp.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)../FGPlugins/Bin64/Xml.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <ImportLibrary>$(OutDir)../FGPlugins/Bin64/Xml.lib</ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "F:\Archive\Experimentation\Tracking\Crysis 2\FGPlugins\Bin64\Udp.dll" "D:\Crysis Wars\Mods\FGPS\FGPlugins\Bin64\"
+copy "F:\Archive\Experimentation\Tracking\Crysis 2\FGPlugins\Bin64\Udp.dll" "$(MSBuildProjectDirectory)\binaries\Bin64\"
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Win32'">
     <ClCompile>
