@@ -1,7 +1,6 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Xml", "Xml.vcproj", "{8429DFEC-1286-4D27-A5E8-8F9733AC1E41}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UDP", "Xml.vcxproj", "{C542FA2B-D775-4679-B2F6-EF1CC9097261}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,30 +10,14 @@ Global
 		Profile|x64 = Profile|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2EB52047-0A81-4343-B703-DF221CA5CC2A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{2EB52047-0A81-4343-B703-DF221CA5CC2A}.Debug|Win32.Build.0 = Debug|Win32
-		{2EB52047-0A81-4343-B703-DF221CA5CC2A}.Debug|x64.ActiveCfg = Debug|x64
-		{2EB52047-0A81-4343-B703-DF221CA5CC2A}.Debug|x64.Build.0 = Debug|x64
-		{2EB52047-0A81-4343-B703-DF221CA5CC2A}.Profile|Win32.ActiveCfg = Profile|Win32
-		{2EB52047-0A81-4343-B703-DF221CA5CC2A}.Profile|Win32.Build.0 = Profile|Win32
-		{2EB52047-0A81-4343-B703-DF221CA5CC2A}.Profile|x64.ActiveCfg = Profile|x64
-		{2EB52047-0A81-4343-B703-DF221CA5CC2A}.Profile|x64.Build.0 = Profile|x64
-		{AEB958D4-45CA-478B-BA8E-D0E897CE974B}.Debug|Win32.ActiveCfg = Debug|Win32
-		{AEB958D4-45CA-478B-BA8E-D0E897CE974B}.Debug|Win32.Build.0 = Debug|Win32
-		{AEB958D4-45CA-478B-BA8E-D0E897CE974B}.Debug|x64.ActiveCfg = Debug|x64
-		{AEB958D4-45CA-478B-BA8E-D0E897CE974B}.Debug|x64.Build.0 = Debug|x64
-		{AEB958D4-45CA-478B-BA8E-D0E897CE974B}.Profile|Win32.ActiveCfg = Profile|Win32
-		{AEB958D4-45CA-478B-BA8E-D0E897CE974B}.Profile|Win32.Build.0 = Profile|Win32
-		{AEB958D4-45CA-478B-BA8E-D0E897CE974B}.Profile|x64.ActiveCfg = Profile|x64
-		{AEB958D4-45CA-478B-BA8E-D0E897CE974B}.Profile|x64.Build.0 = Profile|x64
-		{8429DFEC-1286-4D27-A5E8-8F9733AC1E41}.Debug|Win32.ActiveCfg = Debug|Win32
-		{8429DFEC-1286-4D27-A5E8-8F9733AC1E41}.Debug|Win32.Build.0 = Debug|Win32
-		{8429DFEC-1286-4D27-A5E8-8F9733AC1E41}.Debug|x64.ActiveCfg = Debug|x64
-		{8429DFEC-1286-4D27-A5E8-8F9733AC1E41}.Debug|x64.Build.0 = Debug|x64
-		{8429DFEC-1286-4D27-A5E8-8F9733AC1E41}.Profile|Win32.ActiveCfg = Profile|Win32
-		{8429DFEC-1286-4D27-A5E8-8F9733AC1E41}.Profile|Win32.Build.0 = Profile|Win32
-		{8429DFEC-1286-4D27-A5E8-8F9733AC1E41}.Profile|x64.ActiveCfg = Profile|x64
-		{8429DFEC-1286-4D27-A5E8-8F9733AC1E41}.Profile|x64.Build.0 = Profile|x64
+		{C542FA2B-D775-4679-B2F6-EF1CC9097261}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C542FA2B-D775-4679-B2F6-EF1CC9097261}.Debug|Win32.Build.0 = Debug|Win32
+		{C542FA2B-D775-4679-B2F6-EF1CC9097261}.Debug|x64.ActiveCfg = Debug|x64
+		{C542FA2B-D775-4679-B2F6-EF1CC9097261}.Debug|x64.Build.0 = Debug|x64
+		{C542FA2B-D775-4679-B2F6-EF1CC9097261}.Profile|Win32.ActiveCfg = Profile|Win32
+		{C542FA2B-D775-4679-B2F6-EF1CC9097261}.Profile|Win32.Build.0 = Profile|Win32
+		{C542FA2B-D775-4679-B2F6-EF1CC9097261}.Profile|x64.ActiveCfg = Profile|x64
+		{C542FA2B-D775-4679-B2F6-EF1CC9097261}.Profile|x64.Build.0 = Profile|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

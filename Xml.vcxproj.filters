@@ -22,12 +22,17 @@
     <ClCompile Include="Nodes\FlowUdpNodeListener.cpp">
       <Filter>Nodes</Filter>
     </ClCompile>
-    <ClCompile Include="FlowUdpNodeSender.cpp">
+    <ClCompile Include="Nodes\FlowUdpNodeMulticastListener.cpp">
       <Filter>Nodes</Filter>
     </ClCompile>
-    <ClCompile Include="FlowUdpNodeMulticastListener.cpp">
+    <ClCompile Include="Nodes\FlowUdpNodeMulticastSender.cpp">
       <Filter>Nodes</Filter>
     </ClCompile>
-    <ClCompile Include="FlowUdpNodeMulticastSender.cpp" />
+    <ClCompile Include="Nodes\FlowUdpNodeSender.cpp">
+      <Filter>Nodes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README" />
   </ItemGroup>
 </Project>

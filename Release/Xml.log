@@ -1,0 +1,22 @@
+﻿Build started 17/10/2011 7:04:38 PM.
+     1>Project "F:\Archive\Experimentation\Tracking\Crysis 2\Code\XML\Xml.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Release\UDP.unsuccessfulbuild".
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"D:\Crysis Wars\Code\CryEngine\CryCommon" /I"D:\Crysis Wars\Code\CryEngine\CryAction" /I.\ /I..\..\..\..\Code\CryEngine\CryCommon /I..\..\..\..\Code\CryEngine\CryAction /I..\FGPlugin /Zi /nologo /W1 /WX- /O2 /Oy- /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt FlowUdpNodeMulticastListener.cpp FlowUdpNodeMulticastSender.cpp FlowUdpNodeSender.cpp PluginMain.cpp Nodes\FlowUdpNodeListener.cpp StdAfx.cpp
+         FlowUdpNodeMulticastListener.cpp
+         FlowUdpNodeMulticastSender.cpp
+         FlowUdpNodeSender.cpp
+         PluginMain.cpp
+     1>PluginMain.cpp(29): error C2371: 'g_pGame' : redefinition; different basic types
+                 F:\Archive\Experimentation\Tracking\Crysis 2\Code\FGPlugin\Game.h(295) : see declaration of 'g_pGame'
+     1>PluginMain.cpp(51): error C2440: '=' : cannot convert from 'IGame *' to 'CGame *'
+                 Cast from base to derived requires dynamic_cast or static_cast
+         FlowUdpNodeListener.cpp
+         StdAfx.cpp
+         Generating Code...
+     1>Done Building Project "F:\Archive\Experimentation\Tracking\Crysis 2\Code\XML\Xml.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:08.69
