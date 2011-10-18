@@ -147,7 +147,7 @@ public:
 		{
 			InputPortConfig_Void("Enable", _HELP("Enable receiving signals")),
 			InputPortConfig_Void("Disable", _HELP("Disable receiving signals")),
-			InputPortConfig<int>("Port", 123, _HELP("Port number"), 0,0),
+			InputPortConfig<int>("Port", 1234, _HELP("Port number"), 0,0),
 			{0}
 		};
 

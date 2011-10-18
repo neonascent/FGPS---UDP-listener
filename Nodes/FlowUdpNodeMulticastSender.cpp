@@ -165,8 +165,8 @@ public:
 		{
 			InputPortConfig<bool>("Enabled", false, _HELP("Is sending enabled"), 0, 0),
 			InputPortConfig_AnyType("Send", _HELP("Trigger Send of message")),
-			InputPortConfig<string>("Address", "225.0.0.1", _HELP("Multicast Address to send to (between 225.0.0.1 and 239.255.255.255)"), 0, 0),
-			InputPortConfig<int>("Port", 123, _HELP("Port number"), 0,0),
+			InputPortConfig<string>("Address", "225.1.1.2", _HELP("Multicast Address to send to (between 225.0.0.1 and 239.255.255.255)"), 0, 0),
+			InputPortConfig<int>("Port", 1234, _HELP("Port number"), 0,0),
 			InputPortConfig<string>("Message", "test", _HELP("Message to Send"), 0, 0),
 			{0}
 		};

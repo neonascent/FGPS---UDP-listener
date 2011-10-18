@@ -136,7 +136,7 @@ public:
 			InputPortConfig<bool>("Enabled", false, _HELP("Is sending enabled"), 0, 0),
 			InputPortConfig_AnyType("Send", _HELP("Trigger Send of message")),
 			InputPortConfig<string>("Address", "127.0.0.1", _HELP("IP Address to send to (127.0.0.1 is local)"), 0, 0),
-			InputPortConfig<int>("Port", 123, _HELP("Port number"), 0,0),
+			InputPortConfig<int>("Port", 1234, _HELP("Port number"), 0,0),
 			InputPortConfig<string>("Message", "test", _HELP("Message to Send"), 0, 0),
 			{0}
 		};
