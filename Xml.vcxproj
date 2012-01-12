@@ -111,6 +111,8 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Udp</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='ReleaseBuild|Win32'">Udp</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='ReleaseBuild|x64'">Udp</TargetName>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">F:\Archive\Experimentation\Tracking\Crysis 2\Code\FGPlugin\;D:\Crysis Wars\Code\CryEngine\CryAction;D:\Crysis Wars\Code\CryEngine\CryCommon;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Crysis Wars\Code\CryEngine\CryCommon;D:\Crysis Wars\Code\CryEngine\CryAction;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

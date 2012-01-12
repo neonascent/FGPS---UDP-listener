@@ -282,6 +282,12 @@ public:
 			}
 		}*/
 		if (size != SOCKET_ERROR) {
+			// replace \0 in OSC message with specials
+			for(int i=0; i < size; ++i) {
+				if (recMessage[i] < 1) {
+					recMessage[i] = '\1';
+				}
+			}
 			recMessage[size] = '\0';
 		} 
 	  }
