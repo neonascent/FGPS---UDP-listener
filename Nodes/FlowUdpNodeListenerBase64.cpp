@@ -11,12 +11,14 @@
 /////////////////////////////////////////////////////////////////
 
 #include "StdAfx.h"
+#include "base64.h"
+#include <iostream>
 #include "process.h"
 #include "winsock2.h"
 #include "Nodes/G2FlowBaseNode.h"
 
 ////////////////////////////////////////////////////
-class CFlowUdpNode_Listener : public CFlowBaseNode
+class CFlowUdpNode_ListenerBase64 : public CFlowBaseNode
 {
 	
 	enum EInputPorts
@@ -41,6 +43,7 @@ class CFlowUdpNode_Listener : public CFlowBaseNode
     int port;
 	int STRLEN;
     char recMessage[256];
+	std::string base64Message;
     WSADATA wsaData;
     SOCKET mySocket;
     sockaddr_in myAddress;
@@ -55,7 +58,7 @@ class CFlowUdpNode_Listener : public CFlowBaseNode
 
 public:
 	////////////////////////////////////////////////////
-	CFlowUdpNode_Listener(SActivationInfo *pActInfo)
+	CFlowUdpNode_ListenerBase64(SActivationInfo *pActInfo)
 	{
 		// constructor
 		socketWorking = false;
@@ -125,7 +128,7 @@ public:
 	}
 
 	////////////////////////////////////////////////////
-	virtual ~CFlowUdpNode_Listener(void)
+	virtual ~CFlowUdpNode_ListenerBase64(void)
 	{
 		// destructor
 		if (socketWorking) {
@@ -227,7 +230,7 @@ public:
 	////////////////////////////////////////////////////
 	virtual IFlowNodePtr Clone(SActivationInfo *pActInfo)
 	{
-		return new CFlowUdpNode_Listener(pActInfo);
+		return new CFlowUdpNode_ListenerBase64(pActInfo);
 	}
 
 	////////////////////////////////////////////////////
@@ -282,7 +285,19 @@ public:
 			}
 		}*/
 		if (size != SOCKET_ERROR) {
-			recMessage[size] = '\0';
+			// convert string to base64
+			  /*const std::string s = "ADP GmbH\nAnalyse Design & Programmierung\nGesellschaft mit beschränkter Haftung" ;
+
+			  std::string encoded = base64_encode(reinterpret_cast<const unsigned char*>(s.c_str()), s.length());
+			  std::string decoded = base64_decode(encoded);
+
+			  std::cout << "encoded: " << encoded << std::endl;
+			  std::cout << "decoded: " << decoded << std::endl;
+			  */
+
+
+			base64Message = base64_encode(reinterpret_cast<const unsigned char*>(recMessage), size);
+
 		} 
 	  }
 	  return size;
@@ -296,8 +311,7 @@ public:
 		// did the socket connect okay?
 		if (socketWorking) {
 			if (ReceiveLine() != -1) {
-				std::string r = recMessage;
-				string value = r.c_str();
+				string value = base64Message.c_str();
 				ActivateOutput(pActInfo, EOP_Value, value);
 				bResult = true;
 			}
@@ -315,5 +329,5 @@ public:
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
 
-REGISTER_FLOW_NODE("UDP:Listener", CFlowUdpNode_Listener);
+REGISTER_FLOW_NODE("UDP:ListenerBase64", CFlowUdpNode_ListenerBase64);
 

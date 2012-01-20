@@ -13,6 +13,7 @@
       <Filter>Startup Files</Filter>
     </ClInclude>
     <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="Nodes\base64.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PluginMain.cpp">
@@ -31,6 +32,8 @@
     <ClCompile Include="Nodes\FlowUdpNodeSender.cpp">
       <Filter>Nodes</Filter>
     </ClCompile>
+    <ClCompile Include="Nodes\FlowUdpNodeListenerBase64.cpp" />
+    <ClCompile Include="Nodes\base64.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README" />
