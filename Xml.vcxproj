@@ -345,6 +345,7 @@ copy "F:\Archive\Experimentation\Tracking\Crysis 2\FGPlugins\Bin32\Udp.dll" "$(M
     <ClCompile Include="Nodes\base64.cpp" />
     <ClCompile Include="Nodes\FlowUdpNodeListenerBase64.cpp" />
     <ClCompile Include="Nodes\FlowUdpNodeMulticastListener.cpp" />
+    <ClCompile Include="Nodes\FlowUdpNodeMulticastListenerBase64.cpp" />
     <ClCompile Include="Nodes\FlowUdpNodeMulticastSender.cpp" />
     <ClCompile Include="Nodes\FlowUdpNodeSender.cpp" />
     <ClCompile Include="PluginMain.cpp" />

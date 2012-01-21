@@ -42,7 +42,7 @@ class CFlowUdpNode_ListenerBase64 : public CFlowBaseNode
     int server_length;
     int port;
 	int STRLEN;
-    char recMessage[256];
+    char recMessage[1024];
 	std::string base64Message;
     WSADATA wsaData;
     SOCKET mySocket;
@@ -76,7 +76,7 @@ public:
 	////////////////////////////////////////////////////
 	void startSocket(int port) {
 		// init
-		STRLEN = 256;
+		STRLEN = 1024;
 		socketWorking = false;
 
 		//create socket

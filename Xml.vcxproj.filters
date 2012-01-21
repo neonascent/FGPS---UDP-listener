@@ -34,6 +34,9 @@
     </ClCompile>
     <ClCompile Include="Nodes\FlowUdpNodeListenerBase64.cpp" />
     <ClCompile Include="Nodes\base64.cpp" />
+    <ClCompile Include="Nodes\FlowUdpNodeMulticastListenerBase64.cpp">
+      <Filter>Nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="README" />

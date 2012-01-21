@@ -64,7 +64,7 @@ class CFlowUdpNode_MulticastListener : public CFlowBaseNode
     int server_length;
     int port;
 	int STRLEN;
-    char recMessage[256];
+    char recMessage[1024];
     WSADATA wsaData;
     SOCKET mySocket;
     sockaddr_in myAddress;
@@ -99,7 +99,7 @@ public:
 	////////////////////////////////////////////////////
 	void startSocket(int port, string multicast) {
 		// init
-		STRLEN = 256;
+		STRLEN = 1024;
 		socketWorking = false;
 
 		//create socket
